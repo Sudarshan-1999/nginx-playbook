@@ -1,0 +1,21 @@
+---
+- name: Deploy NGINX container
+  hosts: docker_host
+  become: yes
+
+  tasks:
+    - name: install docker-py library
+      pip:
+        name: docker-py
+    - name: Pull NGINX image
+      docker_image:
+        name: nginx
+        tag: latest
+
+    - name: Start NGINX container
+      docker_container:
+        name: nginx
+        image: nginx
+        state: started
+        ports:
+          - "80:80"

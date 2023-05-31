@@ -1,0 +1,18 @@
+mysql_root_password: "Zoloboro098pw"
+mysql_databases:
+  - name: techdbserver
+mysql_users:
+  - name: techdbuser
+    host: "%"
+    password: r00tuserpw655
+    priv: "techdbserver.*:ALL"
+
+After that, I created my main playbook, which will import roles and vars and run into the managed host. 
+---
+- name: Install db server 
+  hosts: all
+  vars_files:
+    - vars/main.yml
+  roles:
+    - role: geerlingguy.mysql
+      become: yes
